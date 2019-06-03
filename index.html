@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Léa</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="head">
+        <div class="header gauche">
+            <img src="https://fr.freelogodesign.org/Content/img/logo-ex-7.png">
+        </div>
+        <div class="header droite">
+            <h1>TITRE</h1>
+            <a href="https://google.fr">google</a>
+            <a href="page2.html">page2</a>
+        </div>
+    </div>
+    <div class="slider">
+        <div class="banner"><span>Slider</span></div>
+        <!--end banner-->
+        <div class="btnLeft"></div>
+        <!--end btnLeft-->
+        <div class="btnRight"></div>
+        <!--end btnRight-->
+        <div class="info"></div>
+        <!--end info-->
+        <div class="hidden images">
+            <img
+                src="http://www.matejmichalik.com/black-and-white-photography/galleries/post-427/full/Black-and-white-photo-Tanah-lot-bali.jpg">
+            <img src="http://cdn.digital-photo-secrets.com/images/black-white-dendelion-large.jpg">
+            <img src="http://picturescollections.com/wp-content/uploads/2012/04/Black_And_White_Pictures.jpg">
+        </div>
+        <!--end hidden-->
+    </div>
+    <!--end slider-->
+    <script>
+        ;
+        (function () {
+
+            var slider = function () {
+
+                var backImg = [];
+                backImg[0] =
+                    "http://www.matejmichalik.com/black-and-white-photography/galleries/post-427/full/Black-and-white-photo-Tanah-lot-bali.jpg";
+                backImg[1] = "http://cdn.digital-photo-secrets.com/images/black-white-dendelion-large.jpg";
+                backImg[2] =
+                    "http://picturescollections.com/wp-content/uploads/2012/04/Black_And_White_Pictures.jpg";
+
+                var i = 0;
+                var x = (backImg.length) - 1;
+                var int = 3500;
+
+                interval = setInterval(showNext, int); // hoist?
+
+                var elements = {
+                    slider: document.querySelector('.slider'),
+                    btn: {
+                        left: document.querySelector('.btnLeft'),
+                        right: document.querySelector('.btnRight')
+                    }
+                }
+
+                var startInterval = function () {
+                    interval = setInterval(showNext, int);
+                }
+
+                var stopInterval = function () {
+                    clearInterval(interval);
+                }
+
+                var attachEvents = function () {
+                    elements.btn.left.onclick = function () {
+                        showPrevious();
+                    };
+                    elements.btn.right.onclick = function () {
+                        showNext();
+                    };
+                    elements.slider.addEventListener("mouseenter", stopInterval);
+                    elements.slider.addEventListener("mouseleave", startInterval);
+                };
+
+                var changeImg = function () {
+                    elements.slider.style.backgroundImage = 'url(' + backImg[i] + ')';
+                }
+
+                var initialize = (function () {
+                    attachEvents();
+                    changeImg(i);
+                })();
+
+                var showPrevious = function () {
+                    (i <= 0) ? i = 3: i--;
+                    changeImg(i);
+                };
+
+                var showNext = function () {
+                    (i >= x) ? i = 0: i++;
+                    changeImg(i);
+                };
+
+            };
+
+            slider();
+
+        })();
+    </script>
+</body>
+
+</html>
